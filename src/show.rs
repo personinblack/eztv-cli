@@ -59,4 +59,14 @@ impl Show {
         }
         all_eps
     }
+
+    pub async fn eps_by_season(&self, season: &str) -> Vec<Episode> {
+        let all_eps = self.eps_all().await;
+        all_eps.into_iter().filter(|ep| ep.season == season).collect()
+    }
+
+    pub async fn ep(&self, season: &str, episode: &str) -> Vec<Episode> {
+        let eps_by_season = self.eps_by_season(season).await;
+        eps_by_season.into_iter().filter(|ep| ep.episode == episode).collect()
+    }
 }
