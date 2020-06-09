@@ -45,4 +45,18 @@ impl Show {
 
         Ok(episodes)
     }
+
+    pub async fn eps_all(&self) -> Vec<Episode> {
+        let mut all_eps: Vec<Episode> = vec!();
+        let mut page = 1;
+        loop {
+            if let Ok(ep) = &mut self.eps(page, 100).await {
+                all_eps.append(ep);
+                page += 1;
+            } else {
+                break;
+            }
+        }
+        all_eps
+    }
 }

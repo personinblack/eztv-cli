@@ -1,25 +1,16 @@
 use structopt::StructOpt;
 mod show;
-use show::{ Episode, Show };
+use show::Show;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Opt::from_args();
+    let show = Show::new(args.show);
     let eps =
         if args.all {
-            let mut all_eps: Vec<Episode> = vec!();
-            let mut page = 1;
-            loop {
-                if let Ok(ep) = &mut Show::new(args.show).eps(page, args.limit).await {
-                    all_eps.append(ep);
-                    page += 1;
-                } else {
-                    break;
-                }
-            }
-            all_eps
+            show.eps_all().await
         } else {
-            Show::new(args.show).eps(args.page, args.limit).await?
+            show.eps(args.page, args.limit).await?
         };
 
     for ep in eps {
