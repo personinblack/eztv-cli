@@ -1,0 +1,16 @@
+eztv cli 0.1.0
+
+USAGE:
+    eztv [FLAGS] [OPTIONS] --show <show>
+
+FLAGS:
+    -a, --all        Grabs all shows
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --episode <episode>    Which episode?
+    -l, --limit <limit>        Amount of torrents per page [default: 15]
+    -p, --page <page>          Page [default: 1]
+        --season <season>      Which season?
+    -s, --show <show>          Show's id at IMDB
