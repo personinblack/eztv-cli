@@ -6,6 +6,8 @@ use reqwest::Url;
 pub struct Episode {
     filename: String,
     magnet_url: String,
+    seeds: u32,
+    peers: u32,
     title: String,
     season: String,
     episode: String,
@@ -14,9 +16,10 @@ pub struct Episode {
 
 impl fmt::Display for Episode {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "[0;93m->[0;94m {} :: {}MiB\n\n[0;1m{}",
+        write!(f, "[0;93m->[0;94m {} :: {}MiB :: {}↑ {}↓\n\n[0;1m{}",
                self.title,
                self.size_bytes.parse::<u32>().unwrap() / 1048576,
+               self.seeds, self.peers,
                self.magnet_url
               )
     }
